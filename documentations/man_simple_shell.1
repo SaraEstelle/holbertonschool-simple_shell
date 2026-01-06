@@ -1,0 +1,163 @@
+.TH SIMPLE_SHELL 1 "January 2026" "simple_shell" "Holberton Simple Shell"
+.SH NAME
+simple_shell \- a simple UNIX command interpreter
+
+.SH SYNOPSIS
+.B simple_shell
+.br
+Runs an interactive prompt.
+.br
+Also supports non-interactive mode when commands are provided via standard input.
+
+.SH DESCRIPTION
+.B simple_shell
+is a minimal educational UNIX shell developed as part of the Holberton School
+curriculum.
+
+The shell reads commands from standard input, parses them into arguments, and
+executes them by creating child processes.
+
+The shell supports both interactive and non-interactive modes.
+
+In interactive mode, the shell displays a prompt and waits for user input.
+In non-interactive mode, commands are read from standard input without displaying
+a prompt.
+
+At end of file (EOF), the shell exits gracefully.
+
+.SH OPERATION
+On each iteration, the shell performs the following steps:
+
+.IP "1." 3
+Displays a prompt \fB($) \fR when running in interactive mode.
+.IP "2." 3
+Reads a line from standard input using
+.BR getline (3).
+.IP "3." 3
+Removes the trailing newline character.
+.IP "4." 3
+Tokenizes the input line into arguments separated by spaces using
+.BR strtok (3).
+.IP "5." 3
+Checks if the command is a builtin.
+.IP "6." 3
+If not a builtin, resolves the command path using the
+.B PATH
+environment variable.
+.IP "7." 3
+Creates a child process with
+.BR fork (2),
+executes the command with
+.BR execve (2),
+and waits for the child to terminate using
+.BR wait (2)
+or
+.BR waitpid (2).
+
+.SH BUILTINS
+.TP
+.B exit
+Exit the shell.
+
+.TP
+.B env
+Print the current environment variables.
+
+.SH COMMAND SEARCH
+If the command contains a slash ('/'), it is treated as an absolute or relative
+path and executed directly using
+.BR execve (2).
+
+Otherwise, the shell searches for the command in each directory listed in the
+.B PATH
+environment variable. The directories are separated by colons ':'.
+
+For each directory, the shell builds a candidate path of the form:
+\fIdirectory/command\fR
+and checks its existence using
+.BR stat (2).
+
+If no executable is found, an error message is printed to standard error using
+the same format as
+.BR sh (1).
+
+.SH ENVIRONMENT
+The shell inherits the environment of the parent process.
+
+The environment is represented as a NULL-terminated array of strings in the form:
+\fBname=value\fR.
+
+Relevant environment variables include:
+
+.TP
+.B PATH
+A colon-separated list of directories used to locate executable programs.
+
+.TP
+.B HOME
+The home directory of the user (not used by builtins in this version).
+
+.TP
+.B LANG
+May affect the behavior of executed programs.
+
+.SH EXECUTION
+The shell creates a new process using
+.BR fork (2).
+
+The child process executes the requested program using
+.BR execve (2),
+passing the argument vector and the environment.
+
+If execution fails, an error message is printed and the child exits with a failure
+status.
+
+The parent process waits for the child to terminate before displaying the next
+prompt.
+
+.SH EXIT STATUS
+The shell returns 0 on normal termination.
+
+If a command is not found, an error message is printed. In a complete shell,
+this situation typically corresponds to exit status 127.
+
+.SH LIMITATIONS
+.IP "\[bu]" 2
+No handling of quotes, escape characters, or comments.
+.IP "\[bu]"
+No support for pipes, redirections, or logical operators.
+.IP "\[bu]"
+Basic tokenization using spaces only.
+.IP "\[bu]"
+Limited number of builtins.
+.IP "\[bu]"
+No job control or signal handling.
+
+.SH EXAMPLES
+Interactive mode:
+.PP
+.nf
+$ ./simple_shell
+($) /bin/ls
+simple_shell.c main.c
+($) exit
+.fi
+
+Non-interactive mode:
+.PP
+.nf
+$ echo "/bin/ls" | ./simple_shell
+simple_shell.c main.c
+.fi
+
+.SH FILES
+No configuration files are used.
+The shell reads commands exclusively from standard input.
+
+.SH SEE ALSO
+sh(1), execve(2), fork(2), wait(2), environ(7), strtok(3), getline(3)
+
+.SH AUTHORS
+SARA REBATI
+.br
+ALISON LAMBARD
