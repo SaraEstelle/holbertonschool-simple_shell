@@ -19,7 +19,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 		if (shell_state->is_interactive)
 			write(1, "#cisfun$ ", 9);
 
-		line = read_line(); /* Étape 3 de ton plan */
+		line = read_line();
 		if (!line)			/* Gestion du Ctrl+D */
 			break;
 		arg_count = parse_args(line, args);
@@ -27,30 +27,25 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 		if (args[0] == NULL)
 			continue;
 
-		if (strcmp(args[0], "exit") == 0)
+		if (strcmp(args[0], "exit") == 0)/* commande exit*/
 		{
 			exit(0);
 		}
-		if (strcmp(args[0], "env") == 0)
-		{
-			int _printenv(char **envp);
-			continue;
-			free(line);
-		}
-		if (arg_count == 0 || args[0] == NULL) /* Étape 5 & 6 : Nettoyage et préparation */
+
+		if (arg_count == 0 || args[0] == NULL)/*Nettoyage et préparation */
 		{
 			free(line);
-			my_fork(args, argv, envp); /* Étape 7, 8 & 9 : Fork, Exec, Wait */
+			my_fork(args, argv, envp); /* Fork, Exec, Wait */
 		}
 		/* Builtin: env */
 		if (_strcmp(args[0], "env") == 0)
 		{
-			int _printenv(char **envp);
+			_printenv(envp);
 			free(line);
 			continue;
 		}
 		/* Commande externe */
 		my_fork(args, argv, envp);
-		free(line); /* On libère SEULEMENT ici, après l'exécution */
+		free(line); /* On libère */
 	}
 }

@@ -18,7 +18,7 @@ void my_fork(char **args, char **argv, char **envp)
 	cmd_path = _which(args[0], my_getenv("PATH", envp));
 	if (cmd_path == NULL)
 	{
-		fprintf(stderr, "./shell: %s: No such file or directory\n", args[0]);
+		fprintf(stderr, "Shell :%s No such file or directory\n", args[0]);
 		return;
 	}
 
