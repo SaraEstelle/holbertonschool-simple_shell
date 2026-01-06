@@ -24,3 +24,22 @@ char *my_getenv(const char *name, char **envp)
 	}
 	return (NULL);
 }
+
+/**
+ * main - program that prints the environment
+ * using the global variable environ
+ *
+ * Return: Always 0.
+ */
+
+int _printenv(char **envp)
+{
+	unsigned int i = 0;
+
+	while (envp[i] != NULL)
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+	return (0);
+}

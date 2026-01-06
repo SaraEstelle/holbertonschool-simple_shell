@@ -20,7 +20,7 @@ char *_which(const char *command, const char *path_env)
 	if (path_copy == NULL)
 		return (NULL);
 
-	dir = strtok(path_copy, ":");  
+	dir = strtok(path_copy, ":");
 	while (dir != NULL)
 	{
 		len = _strlen(dir) + 1 + _strlen((char *)command) + 1;
