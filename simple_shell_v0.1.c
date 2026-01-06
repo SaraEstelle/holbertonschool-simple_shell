@@ -5,54 +5,25 @@
  *
  */
 
-// prototype
-/* 1. Déclarations (line = NULL, len = 0, argv_command[2]...) */
-
-while (1) /* La boucle infinie */
+void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 {
-	char *caractere = NULL;
-	size_t lenght = 0;
-	ssize_t bytes_read = 0;
+    char *line;
+    char *args[2]; /* Pour la v0.1 : commande + NULL */
 
-	printf(" $");
+    while (1)
+    {
+        if (shell_state->is_interactive)
+            write(1, "#cisfun$ ", 9);
 
-	bytes_read = getline(&caractere, &lenght, stdin);
+        line = read_line(); /* Étape 3 de ton plan */
+        if (!line) /* Gestion du Ctrl+D */
+            break;
 
-	if (bytes_read == -1)
-	{
-		free(caractere);
-		return (0);
-	}
-	printf("%s", caractere);
-	free(caractere);
-
-	/* 5. Nettoyage : remplacer le '\n' par '\0' à l'index [nread - 1] */
-
-	argv[0] = line;
-	argv[1] = NULL;
-
-	child_pid = fork(); /* 7. Création du fils avec fork() */
-	if (child_pid == -1)
-	{
-		perror("Error :");
-		return (1);
-	}
-	if (child_pid == 0) /* 8. DANS LE FILS (if pid == 0) :
-		   Appeler execve(argv_command[0], argv_command, environ);
-		   SI on arrive ici, c'est que ça a échoué -> perror(av[0]); exit(1);
-	 */
-
-	{
-		execve(argv_command[0], argv_command, NULL);
-		perror("Execve Failled !!");
-		return (1);
-	}
-	else /* 9. DANS LE PERE (else) :
-		 Appeler wait(&status);
-   */
-	{
-		wait(&status);
-		printf(" Enfant %d a fini son travail\n", i);
-		i++;
-	}
+        if (parse_args(line, args) == 0) /* Étape 5 & 6 : Nettoyage et préparation */
+        {
+            my_fork(args, argv, envp); /* Étape 7, 8 & 9 : Fork, Exec, Wait */
+        }
+        
+        free(line); /* On libère SEULEMENT ici, après l'exécution */
+    }
 }
