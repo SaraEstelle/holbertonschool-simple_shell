@@ -13,7 +13,7 @@ int parse_args(char *line, char **args)
 	int i = 0;
 	char *token;
 
-	if (line == NULL || args == NULL)
+	if (line == NULL || args == NULL || line == ' ')  
 		return (0);
 
 	/* Remove trailing newline */
