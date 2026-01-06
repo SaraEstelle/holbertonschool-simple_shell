@@ -1,5 +1,4 @@
-#include "shell.h"
-#include <stdlib.h>
+#include "simple_shell.h"
 
 /**
  * _strlen - Returns the length of a string
@@ -8,15 +7,15 @@
  */
 int _strlen(char *s)
 {
-    int len = 0;
+	int len = 0;
 
-    if (!s)
-        return (0);
+	if (s == NULL)
+		return (0);
 
-    while (s[len])
-        len++;
+	while (s[len])
+		len++;
 
-    return (len);
+	return (len);
 }
 
 /**
@@ -26,24 +25,24 @@ int _strlen(char *s)
  */
 char *_strdup(char *str)
 {
-    char *dup;
-    int i;
+	char *dup;
+	int i;
 
-    if (!str)
-        return (NULL);
+	if (str == NULL)
+		return (NULL);
 
-    for (i = 0; str[i]; i++)
-        ;
+	for (i = 0; str[i]; i++)
+		;
 
-    dup = malloc(sizeof(char) * (i + 1));
-    if (!dup)
-        return (NULL);
+	dup = malloc(sizeof(char) * (i + 1));
+	if (dup == NULL)
+		return (NULL);
 
-    for (i = 0; str[i]; i++)
-        dup[i] = str[i];
+	for (i = 0; str[i]; i++)
+		dup[i] = str[i];
 
-    dup[i] = '\0';
-    return (dup);
+	dup[i] = '\0';
+	return (dup);
 }
 
 /**
@@ -54,12 +53,12 @@ char *_strdup(char *str)
  */
 int _strcmp(char *s1, char *s2)
 {
-    while (*s1 && (*s1 == *s2))
-    {
-        s1++;
-        s2++;
-    }
-    return (*s1 - *s2);
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }
 
 /**
@@ -71,16 +70,16 @@ int _strcmp(char *s1, char *s2)
  */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-    size_t i;
+	size_t i;
 
-    for (i = 0; i < n; i++)
-    {
-        if (s1[i] != s2[i])
-            return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-        if (s1[i] == '\0')
-            break;
-    }
-    return (0);
+	for (i = 0; i < n; i++)
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		if (s1[i] == '\0')
+			break;
+	}
+	return (0);
 }
 
 /**
@@ -91,19 +90,19 @@ int _strncmp(const char *s1, const char *s2, size_t n)
  */
 char *_strchr(char *s, char c)
 {
-    int i;
+	int i;
 
-    if (!s)
-        return (NULL);
+	if (s == NULL)
+		return (NULL);
 
-    for (i = 0; s[i]; i++)
-    {
-        if (s[i] == c)
-            return (s + i);
-    }
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] == c)
+			return (s + i);
+	}
 
-    if (c == '\0')
-        return (s + i);
+	if (c == '\0')
+		return (s + i);
 
-    return (NULL);
+	return (NULL);
 }
