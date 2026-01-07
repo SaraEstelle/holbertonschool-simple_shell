@@ -40,7 +40,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 		/* Built-in env*/
 		if (_strcmp(args[0], "env") == 0)
 		{
-			env_command(envp);
+			_printenv(envp);
 			free(line);
 			continue;
 		}
