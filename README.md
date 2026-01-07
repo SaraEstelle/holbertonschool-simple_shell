@@ -1,156 +1,189 @@
-# Simple Shell
+# Simple Shell — holberton_simple_shell
 
-## Description
+A minimalist UNIX command interpreter written in C.  
+This project reproduces the core behavior of `/bin/sh` and focuses on understanding how a shell truly works: processes, system calls, environment handling, and execution flow.
 
-**Simple Shell** is a UNIX command line interpreter written in C.  
-It is a minimalist implementation of `/bin/sh`, developed as part of the Holberton School curriculum to understand how a shell works internally.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The shell reads user input, parses command lines, executes programs using system calls, and handles both interactive and non-interactive modes while respecting strict coding and system constraints.
+## Project Information
 
----
+- **Project name:** Simple Shell  
+- **Directory name:** `holberton_simple_shell`  
+- **Binary name:** `hsh`  
+- **Original repository:**  
+  https://github.com/SaraEstelle/holbertonschool-simple_shell.git  
 
-## Features
+### Contributors
 
-The project evolves progressively through several versions.
+- **Alison Amblard**  
+  GitHub: https://github.com/Ali731-Amb  
 
-### Simple Shell 0.1
-- Display a prompt and wait for user input
-- Execute commands without arguments
-- Do not use the `PATH`
-- Handle errors when a command cannot be found
-- Handle end-of-file condition (Ctrl + D)
-- Work in both interactive and non-interactive modes
+- **Sara Estelle Rebati**  
+  GitHub: https://github.com/SaraEstelle  
 
-### Simple Shell 0.2
-- Handle command lines with arguments
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-### Simple Shell 0.3
-- Handle the `PATH` environment variable
-- Do not call `fork` if the command does not exist
+## Learning Objectives
 
-### Simple Shell 0.4
-- Implement the `exit` built-in command
+By the end of this project, you should be able to explain, without using Google:
 
-### Simple Shell 1.0
-- Implement the `env` built-in command to print the environment
+- Who designed and implemented the original UNIX operating system  
+- Who wrote the first version of the UNIX shell  
+- Who invented the B programming language (direct predecessor of C)  
+- Who Ken Thompson is  
+- How a shell works internally  
+- What a PID and a PPID are  
+- How to manipulate the environment of the current process  
+- The difference between a function and a system call  
+- How to create processes  
+- The three prototypes of `main`  
+- How the shell uses `PATH` to find programs  
+- How to execute a program using `execve`  
+- How to suspend execution until a child process terminates  
+- What EOF (End Of File) is  
 
----
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## Requirements
 
 ### General
-- Allowed editors: vi, vim, emacs
-- Compiled on Ubuntu 20.04 LTS
-- Compiler: gcc
-- Compilation flags: -Wall -Werror -Wextra -pedantic -std=gnu89
-- All files must end with a new line
-- A README.md file at the root of the project is mandatory
-- Code must follow Betty style
-- No memory leaks
-- No more than 5 functions per file
-- All header files must be include-guarded
-- Use system calls only when necessary
-- One GitHub repository per group
 
----
+- Allowed editors: `vi`, `vim`, `emacs`
+- Compilation environment: Ubuntu 20.04 LTS
+- Compiler: `gcc`
+- Compilation flags:  
+  `-Wall -Werror -Wextra -pedantic -std=gnu89`
+- All files must end with a new line
+- A `README.md` file at the root of the project is mandatory
+- Code must follow the **Betty** style  
+  Checked using `betty-style.pl` and `betty-doc.pl`
+- No memory leaks allowed
+- Maximum of **5 functions per file**
+- All header files must be include guarded
+- Use system calls only when necessary
+- One GitHub repository per group  
+  Cloning or duplicating a repository before the second deadline may result in a **0% score**
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## Output
+
+Unless specified otherwise, the program must behave exactly like `/bin/sh`, including:
+
+- Standard output
+- Error output
+
+The only difference:  
+Error messages must use `argv[0]` as the program name.
+
+### Example with `/bin/sh`
+
+`echo "qwerty" | /bin/sh`  
+`/bin/sh: 1: qwerty: not found`
+
+`echo "qwerty" | /bin/../bin/sh`  
+`/bin/../bin/sh: 1: qwerty: not found`
+
+### Same example with `hsh`
+
+`echo "qwerty" | ./hsh`  
+`./hsh: 1: qwerty: not found`
+
+`echo "qwerty" | ./././hsh`  
+`./././hsh: 1: qwerty: not found`
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## Allowed Functions and System Calls
 
-All functions from string.h  
-access, chdir, close, closedir  
-execve, exit, _exit  
-fflush  
-fork  
-free  
-getcwd, getline, getpid  
-isatty  
-kill  
-malloc  
-open, opendir  
-perror  
-printf, fprintf, vfprintf, sprintf  
-putchar  
-read  
-readdir  
-signal  
-stat, lstat, fstat  
-strtok  
-wait, waitpid, wait3, wait4  
-write  
+### Standard Library
+- All functions from `<string.h>`
 
----
+### System Calls and Functions
+- `access`
+- `chdir`
+- `close`
+- `closedir`
+- `execve`
+- `exit`
+- `_exit`
+- `fflush`
+- `fork`
+- `free`
+- `getcwd`
+- `getline`
+- `getpid`
+- `isatty`
+- `kill`
+- `malloc`
+- `open`
+- `opendir`
+- `perror`
+- `printf`
+- `fprintf`
+- `vfprintf`
+- `sprintf`
+- `putchar`
+- `read`
+- `readdir`
+- `signal`
+- `stat`
+- `lstat`
+- `fstat`
+- `strtok`
+- `wait`
+- `waitpid`
+- `wait3`
+- `wait4`
+- `write`
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## Compilation
 
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+The shell must be compiled using:
 
----
+`gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh`
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## Usage
 
 ### Interactive Mode
 
-$ ./hsh  
-($) /bin/ls  
-hsh main.c shell.c  
-($) exit  
+`./hsh`  
+`($) /bin/ls`  
+`hsh main.c shell.c`  
+`($) exit`
 
 ### Non-Interactive Mode
 
-$ echo "/bin/ls" | ./hsh  
-hsh main.c shell.c  
+`echo "/bin/ls" | ./hsh`  
+`hsh main.c shell.c test_ls_2`
 
-$ cat test_file | ./hsh  
-hsh main.c shell.c test_file  
+`cat test_ls_2`  
+`/bin/ls`  
+`/bin/ls`
 
----
+`cat test_ls_2 | ./hsh`  
+`hsh main.c shell.c test_ls_2`  
+`hsh main.c shell.c test_ls_2`
 
-## Error Handling
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Unless specified otherwise, the shell output must match /bin/sh.  
-The only difference is when printing errors: the program name must be equivalent to argv[0].
+## Testing and Checker
 
-Example:
+- The checker will be released 1–2 days before the deadline
+- Students are encouraged to collaborate on:
+  - Standard tests
+  - Edge cases
+  - Stress tests
+- After the deadline, the repository must be forked (if needed) for correction
 
-$ echo "qwerty" | ./hsh  
-./hsh: 1: qwerty: not found  
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
----
+## Final Note
 
-## Built-in Commands
-
-exit  
-Exits the shell.
-
-env  
-Prints the current environment.
-
----
-
-## Constraints and Limitations
-
-- No semicolons
-- No pipes
-- No redirections
-- No cursor movement
-- No special characters: ", ', `, \, *, &, #
-- No advanced shell features
-- Environment must be passed explicitly to execve
-
----
-
-## Repository
-
-GitHub repository: holbertonschool-simple_shell
-
----
-
-## Auteurs
-- AMBLARD Alison — `@Ali731-Amb`  
-- REBATI Estelle Sara — @SaraEstelle
-
----
-
-## Licence
-Projet interne — Holberton School / ALX  
-Usage pédagogique uniquement.
+This project is about understanding, not shortcuts.  
+Every system call exists for a reason.  
+If you can explain *why* each one is used, then the shell is doing its job — and so are you.
