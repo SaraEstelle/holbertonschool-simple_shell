@@ -10,7 +10,6 @@
 char *_which(const char *command, const char *path_env)
 {
 	char *path_copy, *dir, *full_path;
-	struct stat st;
 	size_t len;
 
 	if (command == NULL || path_env == NULL)
@@ -33,7 +32,7 @@ char *_which(const char *command, const char *path_env)
 
 		snprintf(full_path, len, "%s/%s", dir, command);
 
-		if (stat(full_path, &st) == 0)
+		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
 			return (full_path);

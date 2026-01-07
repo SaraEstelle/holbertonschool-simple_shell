@@ -1,77 +1,54 @@
 #include "simple_shell.h"
 
 /**
- * my_fork - Creates a child process and executes a command
- * @args: argument array
- * @argv: program name
- * @envp: environment variables
+ *run_shell - function that run a shell
+ *@shell_state: state of shell
+ *@argv: arguments
+ *@envp: environnement
+ *
  */
-int my_fork(char **args, char **argv, char **envp)
+
+void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 {
-	pid_t pid;
-	int status;
-	char *cmd_path = NULL;
-	int should_free = 0;
-	struct stat st;
+	char *line;
+	int arg_count;
+	char *args[64]; /* Tableau plus grand pour plusieurs arguments */
 
-	if (!args || !args[0])
-		return (0);
-
-	/* Si la commande contient '/', c'est un chemin (absolu ou relatif) */
-	if (_strchr(args[0], '/'))
+	while (1)
 	{
-		if (stat(args[0], &st) == 0)
-			cmd_path = args[0];
-		else
-		{
-			fprintf(stderr, "%s:1 : %s: not found\n", argv[0], args[0]);
-			return (127);
-		}
-	}
-	else
-	{
-		/* Sinon, chercher dans PATH */
-		char *path_env = my_getenv("PATH", envp);
+		if (shell_state->is_interactive)
+			write(1, "($) ", 4);
 
-		if (path_env && path_env[0] != '\0')
+		line = read_line();
+		if (!line)
+			break;
+
+		arg_count = parse_args(line, args);
+
+		if (arg_count == 0 || args[0] == NULL)
 		{
-			cmd_path = _which(args[0], path_env);
-			should_free = 1;
+			free(line);
+			continue;
 		}
 
-		if (!cmd_path)
+		/* Builtin: exit */
+		if (_strcmp(args[0], "exit") == 0)
 		{
-			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
-			return (127);
+			free(line);
+			exit(shell_state->exit_status);
 		}
-	}
-	/* Fork uniquement si la commande existe */
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		if (should_free)
-			free(cmd_path);
-		return (1);
-	}
 
-	if (pid == 0)
-	{
-		/* Child */
-		execve(cmd_path, args, envp);
-		fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
-		exit(127);
-	}
+		/* Builtin: env */
+		if (_strcmp(args[0], "env") == 0)
+		{
+			_printenv(envp);
+			free(line);
+			continue;
+		}
 
-	else
-	{
-		/* parent */
-		wait(&status);
-		if (should_free)
-			free(cmd_path);
+		/* Commande externe */
+		shell_state->exit_status = my_fork(args, argv, envp, shell_state->cmd_count);
+		shell_state->cmd_count++;
+		free(line);
 	}
-	if (WEXITSTATUS(status))
-		return (WEXITSTATUS(status));
-	return (1);
 }
-/* a recouper betty pas contente */

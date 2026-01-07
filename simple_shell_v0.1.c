@@ -11,13 +11,12 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 {
 	char *line;
 	int arg_count;
-	char *args[64];
-	int status; /* Tableau plus grand pour plusieurs arguments */
+	char *args[64]; /* Tableau plus grand pour plusieurs arguments */
 
 	while (1)
 	{
 		if (shell_state->is_interactive)
-			write(STDOUT_FILENO, "#(o_o)$ ", 9);
+			write(1, "($) ", 4);
 
 		line = read_line();
 		if (!line)
@@ -31,12 +30,14 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 			continue;
 		}
 
-		/* Built-in exit */
+		/* Builtin: exit */
 		if (_strcmp(args[0], "exit") == 0)
+		{
+			free(line);
+			exit(shell_state->exit_status);
+		}
 
-			exit_command(line);
-
-		/* Built-in env*/
+		/* Builtin: env */
 		if (_strcmp(args[0], "env") == 0)
 		{
 			_printenv(envp);
@@ -45,10 +46,15 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 		}
 
 		/* Commande externe */
+<<<<<<< HEAD
 		status = my_fork(args, argv, envp);
 		if (!shell_state->is_interactive)
 			exit(status);
 
+=======
+		shell_state->exit_status = my_fork(args, argv, envp, shell_state->cmd_count);
+		shell_state->cmd_count++;
+>>>>>>> 099a40d (V0.3.7)
 		free(line);
 	}
 }

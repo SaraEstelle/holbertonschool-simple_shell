@@ -15,7 +15,7 @@
 #include <sys/stat.h>
 
 /* Environment */
-extern char **environ; /*beug betty a revoir*/
+extern char **environ;/*beug betty a revoir*/
 
 /* String helper functions */
 int _strlen(char *s);
@@ -31,16 +31,18 @@ char *my_getenv(const char *name, char **envp);
  * struct simple_shell - Shell state structure
  * @is_interactive: interactive mode flag
  * @exit_status: last command exit status
+ * @cmd_count: command counter for error messages
  */
 typedef struct simple_shell
 {
 	int is_interactive;
 	int exit_status;
+	int cmd_count;
 } simple_shell_t;
 
 /* Shell core functions (to be implemented later) */
 int parse_args(char *line, char **args);
-int my_fork(char **args, char **argv, char **envp);
+int my_fork(char **args, char **argv, char **envp, int cmd_count);
 char *_which(const char *command, const char *path_env);
 int exit_command(char *line);
 int env_command(char **envp);
