@@ -66,3 +66,4 @@ void my_fork(char **args, char **argv, char **envp)
 			free(cmd_path);
 	}
 }
+/* a recouper betty pas contente */

@@ -26,8 +26,9 @@ char *my_getenv(const char *name, char **envp)
 }
 
 /**
- * main - program that prints the environment
+ * _printenv - program that prints the environment
  * using the global variable environ
+ *@envp: environnement
  *
  * Return: Always 0.
  */
