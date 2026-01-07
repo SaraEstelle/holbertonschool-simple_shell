@@ -12,7 +12,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 {
 	char *line;
 	int arg_count;
-	char *args[2]; /* Pour la v0.1 : commande + NULL */
+	char *args[64]; /* Tableau plus grand pour plusieurs arguments */
 
 	while (1)
 	{
@@ -20,23 +20,24 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 			write(1, "#cisfun$ ", 9);
 
 		line = read_line();
-		if (!line)			/* Gestion du Ctrl+D */
+		if (!line)
 			break;
+
 		arg_count = parse_args(line, args);
 
-		if (args[0] == NULL)
-			continue;
-
-		if (strcmp(args[0], "exit") == 0)/* commande exit*/
+		if (arg_count == 0 || args[0] == NULL)
 		{
+			free(line);
+			continue;
+		}
+
+		/* Builtin: exit */
+		if (_strcmp(args[0], "exit") == 0)
+		{
+			free(line);
 			exit(0);
 		}
 
-		if (arg_count == 0 || args[0] == NULL)/*Nettoyage et préparation */
-		{
-			free(line);
-			my_fork(args, argv, envp); /* Fork, Exec, Wait */
-		}
 		/* Builtin: env */
 		if (_strcmp(args[0], "env") == 0)
 		{
@@ -44,8 +45,9 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 			free(line);
 			continue;
 		}
+
 		/* Commande externe */
 		my_fork(args, argv, envp);
-		free(line); /* On libère */
+		free(line);
 	}
 }
