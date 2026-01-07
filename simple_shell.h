@@ -46,5 +46,6 @@ int exit_command(char *line);
 int env_command(char **envp);
 void run_shell(simple_shell_t *shell_state, char **argv, char **envp);
 char *read_line(void);
+int _printenv(char **envp);
 
 #endif /* SIMPLE_SHELL_H */
