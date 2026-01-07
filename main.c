@@ -41,7 +41,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			if (stat(args[0], &st) != 0)
 			{
-				fprintf(stderr, "%s: %s: No such file or directory\n", argv[0], args[0]);
+				fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 				free(line);
 				continue;
 			}
@@ -51,11 +51,11 @@ int main(int argc, char **argv, char **envp)
 		{
 			/* Chercher dans PATH */
 			cmd_path = _which(args[0], my_getenv("PATH", envp));
-			if (cmd_path == NULL)
+			if (cmd_path == NULL || cmd_path[0] == '\0')
 			{
-				fprintf(stderr, "./shell: No such file or directory\n");
+				fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 				free(line);
-				continue;
+				exit(127);
 			}
 			/*voir pour le chemin path vide*/
 		}

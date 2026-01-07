@@ -35,8 +35,8 @@ void my_fork(char **args, char **argv, char **envp)
 		should_free = 1;
 		if (cmd_path == NULL)
 		{
-			fprintf(stderr, "./shell: %s: No such file or directory\n", args[0]);
-			return;
+			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
+			exit(127);
 		}
 	}
 
