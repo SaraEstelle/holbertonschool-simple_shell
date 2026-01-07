@@ -53,7 +53,7 @@ int main(int argc, char **argv, char **envp)
 			cmd_path = _which(args[0], my_getenv("PATH", envp));
 			if (cmd_path == NULL)
 			{
-				fprintf(stderr, "%s: %s: not found\n", argv[0], args[0]);
+				fprintf(stderr, "./shell: No such file or directory\n");
 				free(line);
 				continue;
 			}

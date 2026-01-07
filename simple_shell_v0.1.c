@@ -34,8 +34,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 		/* Builtin: exit */
 		if (_strcmp(args[0], "exit") == 0)
 		{
-			free(line);
-			exit(0);
+			exit_command(line);
 		}
 
 		/* Builtin: env */
