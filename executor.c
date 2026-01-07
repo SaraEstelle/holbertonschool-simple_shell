@@ -33,7 +33,7 @@ void my_fork(char **args, char **argv, char **envp)
 		/* Sinon, chercher dans PATH */
 		char *path_env = my_getenv("PATH", envp);
 
-		if (path_env && path_env[0] != '\0')
+		if (path_env != NULL && path_env[0] != '\0')
 		{
 			cmd_path = _which(args[0], path_env);
 			should_free = 1;
@@ -50,7 +50,7 @@ void my_fork(char **args, char **argv, char **envp)
 	if (pid == -1)
 	{
 		perror("fork");
-		if (should_free)
+		if (should_free && cmd_path != NULL)
 			free(cmd_path);
 		return;
 	}
@@ -70,7 +70,7 @@ void my_fork(char **args, char **argv, char **envp)
 	{
 		/* parent */
 		wait(&status);
-		if (should_free)
+		if (should_free && cmd_path != NULL)
 			free(cmd_path);
 	}
 }
