@@ -1,52 +1,81 @@
 #include "simple_shell.h"
 
 /**
- *run_shell - function that run a shell
- *@shell_state: state of shell
- *@argv: arguments
- *@envp: environnement
+ * main - Simple Shell v0.1
+ * @argc: argument count (unused)
+ * @argv: argument vector
+ * @envp: environment variables
  *
+ * Return: Always 0
  */
-
-void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	char *line;
-	int arg_count;
-	char *args[64]; /* Tableau plus grand pour plusieurs arguments */
+	char *line = NULL;
+	char *args[2];
+	size_t len = 0;
+	ssize_t nread;
+	pid_t pid;
+	int status;
+	struct stat st;
+
+	(void)argc;
 
 	while (1)
 	{
-		if (shell_state->is_interactive)
-			write(1, "#(o_o)$ ", 9);
+		/* Display prompt only in interactive mode */
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "#cisfun$ ", 9);
 
-		line = read_line();
-		if (!line)
+		/* Read input */
+		nread = getline(&line, &len, stdin);
+		if (nread == -1)
+		{
+			free(line);
 			break;
+		}
 
-		arg_count = parse_args(line, args);
+		/* Remove trailing newline */
+		if (line[nread - 1] == '\n')
+			line[nread - 1] = '\0';
 
-		if (arg_count == 0 || args[0] == NULL)
+		/* Ignore empty input */
+		if (line[0] == '\0')
+			continue;
+
+		/* v0.1: only ONE command, NO arguments */
+		args[0] = line;
+		args[1] = NULL;
+
+		/* Check if executable exists */
+		if (stat(args[0], &st) != 0)
 		{
-			free(line);
+			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 			continue;
 		}
 
-		/* Builtin: exit marche pas*/
-		if (_strcmp(args[0], "exit") == 0)
+		/* Create child process */
+		pid = fork();
+		if (pid == -1)
 		{
-			exit_command(line);
-		}
-
-		/* Builtin: env marche */
-		if (_strcmp(args[0], "env") == 0)
-		{
-			_printenv(envp);
-			free(line);
+			perror("fork");
 			continue;
 		}
 
-		/* Commande externe */
-		my_fork(args, argv, envp);
-		free(line);
+		if (pid == 0)
+		{
+			/* Child process */
+			if (execve(args[0], args, envp) == -1)
+			{
+				perror(argv[0]);
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			/* Parent process */
+			wait(&status);
+		}
 	}
+
+	return (0);
 }
