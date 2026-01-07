@@ -15,9 +15,11 @@ int main(int argc, char **argv, char **envp)
 
 	/* Détecter si le shell est interactif */
 	shell_state.is_interactive = isatty(STDIN_FILENO);
+	shell_state.exit_status = 0;
+	shell_state.cmd_count = 1;
 
 	/* Lancer la boucle principale du shell */
 	run_shell(&shell_state, argv, envp);
 
-	return (0);
+	return (shell_state.exit_status);
 }
