@@ -17,7 +17,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 	while (1)
 	{
 		if (shell_state->is_interactive)
-			write(1, "#cisfun$ ", 9);
+			write(1, "#(o_o) 8===D$ ", 9);
 
 		line = read_line();
 		if (!line)
