@@ -14,11 +14,11 @@ void my_fork(char **args, char **argv, char **envp)
 	int should_free = 0;
 	struct stat st;
 
-	if (args == NULL || args[0] == NULL)
+	if (!args || !args[0])
 		return;
 
 	/* Si la commande contient '/', c'est un chemin (absolu ou relatif) */
-	if (_strchr(args[0], '/') != NULL)
+	if (_strchr(args[0], '/'))
 	{
 		if (stat(args[0], &st) == 0)
 			cmd_path = args[0];
@@ -33,13 +33,13 @@ void my_fork(char **args, char **argv, char **envp)
 		/* Sinon, chercher dans PATH */
 		char *path_env = my_getenv("PATH", envp);
 
-		if (path_env != NULL || path_env[0] != '\0')
+		if (path_env && path_env[0] != '\0')
 		{
 			cmd_path = _which(args[0], path_env);
 			should_free = 1;
 		}
 
-		if (cmd_path == NULL)
+		if (!cmd_path)
 		{
 			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 			return;
