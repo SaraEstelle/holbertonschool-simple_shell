@@ -17,7 +17,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 	while (1)
 	{
 		if (shell_state->is_interactive)
-			write(1, "#(o_o) 8===D$ ", 9);
+			write(1, "#(o_o) 8"==="D$ ", 9);
 
 		line = read_line();
 		if (!line)
@@ -31,13 +31,13 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 			continue;
 		}
 
-		/* Builtin: exit */
+		/* Builtin: exit marche pas*/
 		if (_strcmp(args[0], "exit") == 0)
 		{
 			exit_command(line);
 		}
 
-		/* Builtin: env */
+		/* Builtin: env marche */
 		if (_strcmp(args[0], "env") == 0)
 		{
 			_printenv(envp);
