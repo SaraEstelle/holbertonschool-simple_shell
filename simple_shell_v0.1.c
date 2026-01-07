@@ -5,7 +5,6 @@
  *@shell_state: state of shell
  *@argv: arguments
  *@envp: environnement
- *
  */
 
 void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
@@ -47,7 +46,8 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 
 		/* Commande externe */
 		status = my_fork(args, argv, envp);
-		(void)status;
+		if (!shell_state->is_interactive)
+			exit(status);
 
 		free(line);
 	}
