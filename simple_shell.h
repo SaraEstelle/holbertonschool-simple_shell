@@ -15,7 +15,7 @@
 #include <sys/stat.h>
 
 /* Environment */
-extern char **environ;/*beug betty a revoir*/
+extern char **environ; /*beug betty a revoir*/
 
 /* String helper functions */
 int _strlen(char *s);
@@ -40,7 +40,7 @@ typedef struct simple_shell
 
 /* Shell core functions (to be implemented later) */
 int parse_args(char *line, char **args);
-void my_fork(char **args, char **argv, char **envp);
+int my_fork(char **args, char **argv, char **envp);
 char *_which(const char *command, const char *path_env);
 int exit_command(char *line);
 int env_command(char **envp);

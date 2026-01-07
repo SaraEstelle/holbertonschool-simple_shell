@@ -12,7 +12,8 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 {
 	char *line;
 	int arg_count;
-	char *args[64]; /* Tableau plus grand pour plusieurs arguments */
+	char *args[64];
+	int status; /* Tableau plus grand pour plusieurs arguments */
 
 	while (1)
 	{
@@ -33,9 +34,8 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 
 		/* Built-in exit */
 		if (_strcmp(args[0], "exit") == 0)
-		{
+
 			exit_command(line);
-		}
 
 		/* Built-in env*/
 		if (_strcmp(args[0], "env") == 0)
@@ -46,7 +46,8 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 		}
 
 		/* Commande externe */
-		my_fork(args, argv, envp);
+		status = my_fork(args, argv, envp);
+		(void)status;
 
 		free(line);
 	}
