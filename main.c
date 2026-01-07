@@ -21,7 +21,7 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "#(o_o) 8===D$ ", 9);
+			write(STDOUT_FILENO, "#cisfun$ ", 9);
 
 		line = read_line();
 		if (!line)
@@ -29,7 +29,7 @@ int main(int argc, char **argv, char **envp)
 
 		/* Parse la ligne en arguments */
 		arg_count = parse_args(line, args);
-
+		arg_count++;
 		if (arg_count == 0 || args[0] == NULL)
 		{
 			free(line);
@@ -53,10 +53,11 @@ int main(int argc, char **argv, char **envp)
 			cmd_path = _which(args[0], my_getenv("PATH", envp));
 			if (cmd_path == NULL)
 			{
-				fprintf(stderr, "./hsh: 1: ls: not found", argv[0], args[0]);
+				fprintf(stderr, "./shell: No such file or directory\n");
 				free(line);
 				continue;
 			}
+			/*voir pour le chemin path vide*/
 		}
 
 		pid = fork();
