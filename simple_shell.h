@@ -15,7 +15,7 @@
 #include <sys/stat.h>
 
 /* Environment */
-extern char **environ;
+extern char **environ;/*beug betty a revoir*/
 
 /* String helper functions */
 int _strlen(char *s);

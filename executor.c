@@ -10,7 +10,7 @@ void my_fork(char **args, char **argv, char **envp)
 {
 	pid_t pid;
 	int status;
-	char *cmd_path;
+	char *cmd_path = NULL;
 	int should_free = 0;
 	struct stat st;
 
@@ -24,22 +24,28 @@ void my_fork(char **args, char **argv, char **envp)
 			cmd_path = args[0];
 		else
 		{
-			fprintf(stderr, "./shell: %s: No such file or directory\n", args[0]);
+			fprintf(stderr, "%s:1 : %s: not found\n", argv[0], args[0]);
 			return;
 		}
 	}
 	else
 	{
 		/* Sinon, chercher dans PATH */
-		cmd_path = _which(args[0], my_getenv("PATH", envp));
-		should_free = 1;
+		char *path_env = my_getenv("PATH", envp);
+
+		if (path_env != NULL || path_env[0] != '\0')
+		{
+			cmd_path = _which(args[0], path_env);
+			should_free = 1;
+		}
+
 		if (cmd_path == NULL)
 		{
-			fprintf(stderr, "./shell: %s: No such file or directory\n", args[0]);
+			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 			return;
 		}
 	}
-
+	/* Fork uniquement si la commande existe */
 	pid = fork();
 	if (pid == -1)
 	{
@@ -51,18 +57,21 @@ void my_fork(char **args, char **argv, char **envp)
 
 	if (pid == 0)
 	{
+		/* Child */
 		if (execve(cmd_path, args, envp) == -1)
 		{
-			perror(argv[0]);
+			fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
 			if (should_free)
 				free(cmd_path);
-			exit(1);
+			exit(127);
 		}
 	}
 	else
 	{
+		/* parent */
 		wait(&status);
 		if (should_free)
 			free(cmd_path);
 	}
 }
+/* a recouper betty pas contente */

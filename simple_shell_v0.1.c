@@ -17,7 +17,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 	while (1)
 	{
 		if (shell_state->is_interactive)
-			write(1, "#cisfun$ ", 9);
+			write(STDOUT_FILENO, "#(o_o)$ ", 9);
 
 		line = read_line();
 		if (!line)
@@ -31,22 +31,23 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 			continue;
 		}
 
-		/* Builtin: exit */
+		/* Built-in exit */
 		if (_strcmp(args[0], "exit") == 0)
 		{
 			exit_command(line);
 		}
 
-		/* Builtin: env */
+		/* Built-in env*/
 		if (_strcmp(args[0], "env") == 0)
 		{
-			_printenv(envp);
+			env_command(envp);
 			free(line);
 			continue;
 		}
 
 		/* Commande externe */
 		my_fork(args, argv, envp);
+
 		free(line);
 	}
 }
