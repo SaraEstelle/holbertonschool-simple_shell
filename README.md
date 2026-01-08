@@ -1,3 +1,5 @@
+<img width="1408" height="768" alt="Gemini_Generated_Image_kvc90pkvc90pkvc9" src="https://github.com/user-attachments/assets/cb0e8e99-51e2-4fed-93b1-488f4965a166" />
+
 # Simple Shell
 
 ![C](https://img.shields.io/badge/language-C-blue.svg)
