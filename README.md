@@ -163,7 +163,7 @@ The video below demonstrates the main features of the shell:
 
 https://github.com/user-attachments/assets/e4372aab-eb14-4268-8c80-3c9ff74f5a31
 
-*(Clique sur l'image pour ouvrir la vidéo)*
+(Click on the image to watch the video)
 ### Basic Tests
 
 ```bash
