@@ -161,10 +161,7 @@ The video below demonstrates the main features of the shell:
 
 ▶️ Video demonstration:
 
-<video width="100%" controls>
-  <source src="illustration/video_shell_demo.mp4" type="video/mp4">
-</video>
-
+![](https://github.com/SaraEstelle/holbertonschool-simple_shell/raw/main/illustration/NOM_DE_TA_VIDEO.mp4)
 
 ### Basic Tests
 
