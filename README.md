@@ -161,7 +161,9 @@ The video below demonstrates the main features of the shell:
 
 ▶️ Video demonstration:
 
-![](https://github.com/user-attachments/assets/484e70ff-0a98-4b7a-a76d-79fa20c5b436)
+<video width="100%" controls>
+  <source src="illustration/video_shell_demo.mp4" type="video/mp4">
+</video>
 
 
 ### Basic Tests
