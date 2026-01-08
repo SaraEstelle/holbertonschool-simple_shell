@@ -149,6 +149,23 @@ man ./man_simple_shell.1
 
 ## 🧪 Testing
 
+## 🎥 Simple Shell – Video Demonstration
+
+After compilation, the simple shell can be executed directly from the terminal.
+
+The video below presents a real execution of the program and highlights the following concepts:
+- Display of the shell prompt and user interaction
+- Parsing of user input
+- Execution of external commands using the PATH environment variable
+- Handling of arguments
+- Error handling for invalid commands
+- Behavior when PATH is empty or modified
+
+▶️ **Video demonstration:**  
+[Simple Shell – Functional Overview]([(https://youtu.be/1o9r3nywCqo])
+
+This demonstration validates the correct behavior of the shell in accordance with the project requirements and learning objectives.
+
 ### Basic Tests
 
 ```bash
@@ -159,7 +176,7 @@ echo "ls" | ./hsh
 echo "ls -l /tmp" | ./hsh
 
 # Test absolute path
-echo "/bin/pwd" | ./hsh
+echo "/bin/ls" | ./hsh
 
 # Test builtin
 echo "env" | ./hsh
