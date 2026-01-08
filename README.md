@@ -161,8 +161,10 @@ The video below demonstrates the main features of the shell:
 
 ▶️ Video demonstration:
 
-[![](https://github.com/SaraEstelle/holbertonschool-simple_shell/raw/main/illustration/NOM_DE_TA_VIDEO.mp4)](https://github.com/SaraEstelle/holbertonschool-simple_shell/raw/main/illustration/video_shell_demo.mp4)
+## 📺 Démo Vidéo
+[![Regarder la démo du Shell](https://raw.githubusercontent.com/SaraEstelle/holbertonschool-simple_shell/main/illustration/video_shell_demo.mp4)](https://github.com/SaraEstelle/holbertonschool-simple_shell/raw/main/illustration/video_shell_demo.mp4)
 
+*(Clique sur l'image pour ouvrir la vidéo)*
 ### Basic Tests
 
 ```bash
