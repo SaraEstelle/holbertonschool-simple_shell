@@ -6,14 +6,17 @@
  * @shell_state: current shell state
  * @envp: environment variables
  *
- * Return: 1 if a built-in was executed, 0 otherwise
+ * Return:
+ * -1 if exit is requested
+ *  1 if a built-in was executed,
+ *  0 otherwise
  */
 int handle_builtin(char **args, simple_shell_t *shell_state, char **envp)
 {
+	(void)shell_state;
+
 	if (_strcmp(args[0], "exit") == 0)
-	{
-		exit(shell_state->exit_status);
-	}
+		return (-1);
 
 	if (_strcmp(args[0], "env") == 0)
 	{
@@ -49,6 +52,7 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 {
 	char *line;
 	int arg_count;
+	int builtin_status;
 	char *args[64];
 
 	while (1)
@@ -67,7 +71,15 @@ void run_shell(simple_shell_t *shell_state, char **argv, char **envp)
 			continue;
 		}
 
-		if (handle_builtin(args, shell_state, envp))
+		builtin_status = handle_builtin(args, shell_state, envp);
+
+		if (builtin_status == -1)
+		{
+			free(line);
+			exit(shell_state->exit_status);
+		}
+
+		if (builtin_status == 1)
 		{
 			free(line);
 			continue;
