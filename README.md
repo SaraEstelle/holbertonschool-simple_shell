@@ -159,7 +159,8 @@ The video below demonstrates the main features of the shell:
 - Handling of arguments and errors
 - Behavior when PATH is empty or modified
 
-▶️ Video demonstration:  
+▶️ Video demonstration:
+
 [![Simple Shell Demo](illustrations/video_thumbnail.png)](illustrations/video_shell_demo.mp4)
 
 
