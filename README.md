@@ -153,18 +153,15 @@ man ./man_simple_shell.1
 
 After compilation, the simple shell can be executed directly from the terminal.
 
-The video below presents a real execution of the program and highlights the following concepts:
-- Display of the shell prompt and user interaction
-- Parsing of user input
-- Execution of external commands using the PATH environment variable
-- Handling of arguments
-- Error handling for invalid commands
+The video below demonstrates the main features of the shell:
+- Display of the prompt and user input
+- Execution of external commands
+- Handling of arguments and errors
 - Behavior when PATH is empty or modified
 
-▶️ **Video demonstration:**  
-[Simple Shell – Functional Overview](https://youtu.be/1o9r3nywCqo)
+▶️ Video demonstration:  
+[![Simple Shell Demo](illustrations/video_thumbnail.png)](illustrations/video_shell_demo.mp4)
 
-This demonstration validates the correct behavior of the shell in accordance with the project requirements and learning objectives.
 
 ### Basic Tests
 
