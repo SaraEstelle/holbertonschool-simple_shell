@@ -147,6 +147,12 @@ View the manual page:
 man ./man_simple_shell.1
 ```
 
+```md
+## 🔁 Shell Execution Flowchart
+This flowchart illustrates the internal logic of the simple shell, including the main loop, builtin handling, process creation, command execution, and error management.
+
+![Simple Shell Flowchart](flowchart/simple_shell_flowchart.png)
+
 ## 🧪 Testing
 
 ## 🎥 Simple Shell – Video Demonstration
