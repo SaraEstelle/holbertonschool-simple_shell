@@ -162,7 +162,7 @@ The video below presents a real execution of the program and highlights the foll
 - Behavior when PATH is empty or modified
 
 ▶️ **Video demonstration:**  
-[Simple Shell – Functional Overview]([(https://youtu.be/1o9r3nywCqo])
+[Simple Shell – Functional Overview](https://youtu.be/1o9r3nywCqo)
 
 This demonstration validates the correct behavior of the shell in accordance with the project requirements and learning objectives.
 
