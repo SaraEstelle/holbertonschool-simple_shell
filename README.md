@@ -160,7 +160,7 @@ The video below demonstrates the main features of the shell:
 - Behavior when PATH is empty or modified
 
 ▶️ Video demonstration:  
-## here some returns in video : https://raw.githubusercontent.com/SaraEstelle/holbertonschool-simple_shell/main/illustrations/video_shell_demo.mp4
+[![Simple Shell Demo](illustrations/video_thumbnail.png)](illustrations/video_shell_demo.mp4)
 
 
 ### Basic Tests
