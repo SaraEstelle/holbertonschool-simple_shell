@@ -157,6 +157,7 @@ This flowchart illustrates the internal logic of the simple shell, including the
 
 <img width="1536" height="1024" alt="ChatGPT Image 8 janv  2026, 16_33_07" src="https://github.com/user-attachments/assets/6bec0f04-a283-4fe7-8019-290e2c599f6a" />
 
+</div>
 
 ## 🧪 Testing
 
