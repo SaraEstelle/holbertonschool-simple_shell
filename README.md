@@ -151,6 +151,13 @@ This flowchart illustrates the internal logic of the simple shell, including the
 
 ![Simple Shell Flowchart](flowchart/simple_shell_flowchart.png)
 
+## Snippets
+<div align="center">
+<img width="1536" height="1024" alt="ChatGPT Image 8 janv  2026, 16_47_32" src="https://github.com/user-attachments/assets/a1c54900-239d-49e3-96e0-98fd709b34bc" />
+
+<img width="1536" height="1024" alt="ChatGPT Image 8 janv  2026, 16_33_07" src="https://github.com/user-attachments/assets/6bec0f04-a283-4fe7-8019-290e2c599f6a" />
+
+
 ## 🧪 Testing
 
 ## 🎥 Simple Shell – Video Demonstration
